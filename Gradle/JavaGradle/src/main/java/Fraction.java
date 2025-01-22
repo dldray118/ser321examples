@@ -1,4 +1,5 @@
 import java.io.*;
+
 /**
  * Purpose: demonstrate simple Java Fraction class with command line,
  * jdb debugging, and Ant build file.
@@ -11,50 +12,55 @@ import java.io.*;
  */
 public class Fraction {
 
-   private int numerator, denominator;
+    private int numerator, denominator;
 
-   public Fraction(){
-      numerator = denominator = 0;
-   }
+    public Fraction() {
+        numerator = 1;  // Default value
+        denominator = 1;  // Default value
+    }
 
-   public void print() {
-    System.out.print(numerator + "/" + denominator );
-   }
+    public void print() {
+        System.out.print(numerator + "/" + denominator);
+    }
 
-   public void setNumerator (int n ){
-      numerator = n;
-   }
+    public void setNumerator(int n) {
+        numerator = n;
+    }
 
-   public void setDenominator (int d) {
-      denominator = d;
-   }
+    public void setDenominator(int d) {
+        denominator = d;
+    }
 
-   public int getDenominator() {
-      return denominator;
-   }
+    public int getDenominator() {
+        return denominator;
+    }
 
-   public int getNumerator() {
-      return numerator;
-   }
+    public int getNumerator() {
+        return numerator;
+    }
 
-   public static void main (String args[]) {
-      try {
-         // create a new instance
-         // Fraction *frac = [[Fraction alloc] init];
-         Fraction frac = new Fraction();
+    public static void main(String[] args) {
+        Fraction fraction = new Fraction();
 
-         // set the values
-         frac.setNumerator(1);
-         frac.setDenominator(3);
+        try {
+            if (args.length >= 2) {
+                fraction.setNumerator(Integer.parseInt(args[0]));
+                fraction.setDenominator(Integer.parseInt(args[1]));
+            } else if (args.length == 1) {
+                fraction.setNumerator(Integer.parseInt(args[0]));
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid argument(s). Using default values: numerator=1, denominator=1");
+        }
 
-         // print it
-         System.out.print("The fraction is: ");
-         frac.print();
-         System.out.println("");
-
-      }catch(Exception e) {
-         e.printStackTrace();
-      }
-   }
+        if (fraction.getDenominator() == 0) {
+            System.out.println("Denominator cannot be zero.");
+        } else {
+            System.out.print("Fraction: ");
+            fraction.print();
+            System.out.println();
+        }
+    }
+    
 }
 
